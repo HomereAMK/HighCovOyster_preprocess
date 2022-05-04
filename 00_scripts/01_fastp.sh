@@ -5,9 +5,8 @@
 #PBS -N fastp
 #PBS -o 98_log_files/Trim/__BASE__fastp.out
 #PBS -e 98_log_files/Trim/__BASE__fastp.err
-#PBS -l walltime=00:02:00:00
-#PBS -l mem=8g
-#PBS -l ncpus=1
+#PBS -l walltime=00:05:00:00
+#PBS -l mem=20g
 #PBS -r n
 
 
