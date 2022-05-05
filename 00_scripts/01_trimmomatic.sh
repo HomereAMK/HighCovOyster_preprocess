@@ -1,5 +1,5 @@
 #!/bin/bash
-#PBS -d /home/projects/dp_00007/people/hmon/Shucking
+#PBS -d /home/projects/dp_00007/people/hmon/HighCovOyster_preprocess
 #PBS -W group_list=dp_00007
 #PBS -A dp_00007
 #PBS -N trimmomatic
@@ -27,7 +27,7 @@ module load trimmomatic/0.38
 
 # Global variables
 base=__BASE__
-ADAPTERS=01_infofiles/NexteraPE_NT.fa
+ADAPTERS=/home/projects/dp_00007/people/hmon/Shucking/01_infofiles/NexteraPE_NT.fa
 
 java -jar /services/tools/trimmomatic/0.38/trimmomatic-0.38.jar PE \
         -threads 8 \
