@@ -5,8 +5,9 @@
 #PBS -N trimmomatic
 #PBS -o 98_log_files/Trim/__BASE__trim.out
 #PBS -e 98_log_files/Trim/__BASE__trim.err
-#PBS -l walltime=00:05:00:00
-#PBS -l mem=40g
+#PBS -l walltime=00:10:00:00
+#PBS -l nodes=1:ppn=30
+#PBS -l mem=100g
 #PBS -r n
 
 
