@@ -7,7 +7,7 @@ rm 00_scripts/MARKDUP*sh
 
 # launch scripts for Colosse
 
-for file in $(ls 04_mapped/*sort*.bam|sed -e 's/.sort.minq20.bam//g'|sort -u)
+for file in $(ls 04_mapped/*sort*.bam|sed -e 's/.sort.minq30.bam//g'|sort -u)
 do
 
 base=$(basename "$file")
