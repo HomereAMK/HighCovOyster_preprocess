@@ -40,27 +40,26 @@ DATAOUTPUT="04_mapped"
 DATAINPUT="03_trimmed"
 GENOME="/home/projects/dp_00007/people/hmon/Shucking/01_infofiles/fileOegenome10scaffoldC3G.fasta"
 NCPU=8
-base=__BASE__
 
 
 
   # Align reads 1 step
-bwa mem "$GENOME" "$DATAINPUT"/TRAL_19_EKDL220000317-1a-AK19261-AK31202_HWHVMDSX2_L1_1.paired.fq.gz "$DATAINPUT"/TRAL_19_EKDL220000317-1a-AK19261-AK31202_HWHVMDSX2_L1_2.paired.fq.gz >"$DATAOUTPUT"/TRAL_19_EKDL220000317-1a-AK19261-AK31202_HWHVMDSX2_L1.sam
+#bwa mem "$GENOME" "$DATAINPUT"/TRAL_19_EKDL220000317-1a-AK19261-AK31202_HWHVMDSX2_L1_1.paired.fq.gz "$DATAINPUT"/TRAL_19_EKDL220000317-1a-AK19261-AK31202_HWHVMDSX2_L1_2.paired.fq.gz >"$DATAOUTPUT"/TRAL_19_EKDL220000317-1a-AK19261-AK31202_HWHVMDSX2_L1.sam
 
 
-samtools view -bS -h -q 30 -F 4 "$DATAOUTPUT"/TRAL_19_EKDL220000317-1a-AK19261-AK31202_HWHVMDSX2_L1.sam >"$DATAOUTPUT"/TRAL_19_EKDL220000317-1a-AK19261-AK31202_HWHVMDSX2_L1.bam
+#samtools view -bS -h -q 30 -F 4 "$DATAOUTPUT"/TRAL_19_EKDL220000317-1a-AK19261-AK31202_HWHVMDSX2_L1.sam >"$DATAOUTPUT"/TRAL_19_EKDL220000317-1a-AK19261-AK31202_HWHVMDSX2_L1.bam
 
 
      echo "Creating sorted bam for $base"
-        samtools sort "$DATAOUTPUT"/TRAL_19_EKDL220000317-1a-AK19261-AK31202_HWHVMDSX2_L1.bam -o "$DATAOUTPUT"/TRAL_19_EKDL220000317-1a-AK19261-AK31202_HWHVMDSX2_L1.sort.minq30.bam
-        samtools index "$DATAOUTPUT"/TRAL_19_EKDL220000317-1a-AK19261-AK31202_HWHVMDSX2_L1.sort.minq30.bam
+       # samtools sort "$DATAOUTPUT"/TRAL_19_EKDL220000317-1a-AK19261-AK31202_HWHVMDSX2_L1.bam -o "$DATAOUTPUT"/TRAL_19_EKDL220000317-1a-AK19261-AK31202_HWHVMDSX2_L1.sort.minq30.bam
+        #samtools index "$DATAOUTPUT"/TRAL_19_EKDL220000317-1a-AK19261-AK31202_HWHVMDSX2_L1.sort.minq30.bam
    
    # Clean up
-    echo "Removing "$DATAOUTPUT"/"$base".sam"
-    echo "Removing "$DATAOUTPUT"/"$base".bam"
+   # echo "Removing "$DATAOUTPUT"/"$base".sam"
+   # echo "Removing "$DATAOUTPUT"/"$base".bam"
 
-        rm "$DATAOUTPUT"/"$base".sam
-        rm "$DATAOUTPUT"/"$base".bam
+       # rm "$DATAOUTPUT"/"$base".sam
+       # rm "$DATAOUTPUT"/"$base".bam
 
 #map only on scaffold5
 # because of a possible inversin at the begin of the chr for the scandinavian populations (see  )
@@ -82,3 +81,41 @@ samtools view -bS -h -q 30 -F 4 "$DATAOUTPUT"/TRAL_19_EKDL220000317-1a-AK19261-A
 
    #     rm "$DATAOUTPUT"/"$base".sam
     #    rm "$DATAOUTPUT"/"$base".bam
+
+
+# Global variables
+DATAOUTPUT="06_realigned"
+DATAINPUT="05_dedup"
+GENOME="/home/projects/dp_00007/people/hmon/Shucking/01_infofiles/fileOegenome10scaffoldC3G.fasta"
+
+#move to present working dir
+cd $PBS_O_WORKDIR
+base=TRAL_19_EKDL220000317-1a-AK19261-AK31202_HWHVMDSX2_L1_1
+#scripts
+#fasta seq dictionary file ref picard
+#java -jar /services/tools/picard-tools/2.9.1/picard.jar CreateSequenceDictionary R= $GENOME
+
+#-fai ref
+#samtools faidx $GENOME
+
+# Index bam files
+samtools index "$DATAINPUT"/"$base".nocig.dedup_clipoverlap.minq30.bam 
+
+## Create list of potential in-dels nocig
+java -jar /services/tools/gatk/3.8-0/GenomeAnalysisTK.jar \
+-T RealignerTargetCreator \
+-R $GENOME \
+-I "$DATAINPUT"/"$base".nocig.dedup_clipoverlap.minq30.bam  \
+-o "$DATAOUTPUT"/"$base".all_samples_for_indel_realigner.nocig.minq30.intervals 
+
+## Run the indel realigner tool nocig
+java -jar /services/tools/gatk/3.8-0/GenomeAnalysisTK.jar \
+-T IndelRealigner \
+-R $GENOME \
+-I "$DATAINPUT"/"$base".nocig.dedup_clipoverlap.minq30.bam \
+-targetIntervals "$DATAOUTPUT"/"$base".all_samples_for_indel_realigner.nocig.minq30.intervals \
+--consensusDeterminationModel USE_READS  --nWayOut realigned.bam
+
+##
+mv *realigned.bam 06_realigned/
+mv *realigned.bai 06_realigned/
