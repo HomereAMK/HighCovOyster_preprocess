@@ -90,7 +90,7 @@ GENOME="/home/projects/dp_00007/people/hmon/Shucking/01_infofiles/fileOegenome10
 
 #move to present working dir
 cd $PBS_O_WORKDIR
-base=TRAL_19_EKDL220000317-1a-AK19261-AK31202_HWHVMDSX2_L1_1
+base=TRAL_19_EKDL220000317-1a-AK19261-AK31202_HWHVMDSX2_L1
 #scripts
 #fasta seq dictionary file ref picard
 #java -jar /services/tools/picard-tools/2.9.1/picard.jar CreateSequenceDictionary R= $GENOME
