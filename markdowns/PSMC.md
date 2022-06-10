@@ -47,3 +47,34 @@ do
     done
 done
 ```
+
+##### Concatenates `.psmc` files:
+>Nissum only
+```
+cat PSMC/NISS_08.psmc PSMC/NISS_13.psmc > NISSHC-Allind_01_NoBS.psmc
+```
+
+
+##### Plots concatenated `.psmc` results:
+ 
+```
+psmc_plot.pl -g 2.5 -u 3.7e-8 -p -G -R -L -M 'LumpfishHC-Skagerrak_01_NoBS,LumpfishHC-Kattegat_01_NoBS,LumpfishHC-Oeresund_01_NoBS,LumpfishHC-BalticSea_01_NoBS' LumpfishHC-AllPops_01_NoBS LumpfishHC-AllPops_01_NoBS.psmc
+```
+ 
+##### Plots `PSMC` results:
+ 
+```
+for POP in Skagerrak Kattegat Oeresund BalticSea
+do
+    for IND in 01
+    do
+    psmc_plot.pl -g 2.5 -u 3.7e-8 -p -G LumpfishHC-${POP}_${IND} /home/projects/dp_00007/people/geopac/Analyses/Lumpfish/Lumpfish_PSMC/LumpfishHC-${POP}_${IND}_NoBS.psmc
+    done
+done
+```
+ 
+##### Performs bootstrapping:
+ 
+```
+/groups/hologenomics/software/psmc/v0.6.5/utils/splitfa ~/data/VampireGenomics/PSMCBAMs/D1_4.diploid.psmcfa > ~/data/VampireGenomics/PSMCBAMs/D1_4.diploid.split.psmcfa
+```
