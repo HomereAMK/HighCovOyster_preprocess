@@ -1,6 +1,6 @@
 ### The BEGINNING ~~~~~
 ##
-# ~ Plots BSG_Lumpfish--PSMC | First written by Jos? Cerca with later modification by George Pacheco.
+# ~ Plots BSG_Lumpfish--PSMC | First written by Jos? Cerca with later modification by George Pacheco. 
 
 
 # Cleans the environment ~ 
@@ -24,9 +24,9 @@ source("ploting.R")
 
 
 # Defines parameters ~
-FishMut = 3.7e-08
+FishMut = 0.3e-08 #estuarine oyster value
 data_list <- as.data.frame(dir(pattern = ".psmc")); colnames(data_list) <- c("PSMCfile")
-data_list$GenTime <- ifelse(grepl("AtlanticHerring", data_list$PSMCfile), 3.3, 2.5)
+data_list$GenTime <- ifelse(grepl("AtlanticHerring", data_list$PSMCfile), 1, 1)
 
 
 # Loads PSMC data ~
@@ -163,11 +163,9 @@ PSMC_plot <-
 
   
 # Saves plot ~
-ggsave(PSMC_plot, file = "BSG_Combined.PSMC_New500.pdf",
+ggsave(PSMC_plot, file = "~/Desktop/Scripts/HighCovOyster_preprocess/08_local_r/03_results/PSMC/HC_Nissum_mu0.3e-8_Jun22.pdf",
        device = cairo_pdf, width = 14, height = 14, scale = 1.35, dpi = 600)
-ggsave(PSMC_plot, file = "BSG_Combined.PSMC.jpeg",
-       width = 14, height = 14, scale = 1.35, dpi = 600)
-
+dev.off()
 
 #
 ##
