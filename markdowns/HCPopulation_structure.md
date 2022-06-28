@@ -73,3 +73,25 @@ angsd -b $BAMLIST -ref $REF -out $OUTPUTDIR/Sally_HCminind7_27jun22 \
 -GL 2 -doMajorMinor 4 -doMaf 1 -doCounts 1 -doGlf 2 -doPost 2 -doGeno 2 -dumpCounts 2 -doHaploCall 1 -doIBS 1 -doDepth 1 \
 -doCov 1 -makeMatrix 1 -P 36
 ```
+```
+#Get the label list from the bam list
+awk '{split($0,a,"/"); print a[9]}' $BAMLIST | awk '{split($0,b,"_"); print b[1]"_"b[2]}' > /home/projects/dp_00007/people/hmon/HighCovOyster_preprocess/01_infofiles/list_HC_noluri.labels
+```
+```
+#Get the annotation file 
+cat /home/projects/dp_00007/people/hmon/HighCovOyster_preprocess/01_infofiles/list_HC_noluri.labels | awk '{split($0,a,"_"); print $1"\t"a[1]}' > /home/projects/dp_00007/people/hmon/HighCovOyster_preprocess/01_infofiles/list_HC_noluri.annot
+```
+
+
+>Get Real Coverage (_Genotype Likelihoods_):
+```
+
+  zcat $OUTPUTDIR/Sally_HCminind7_27jun22.counts.gz | tail -n +2 | gawk ' {for (i=1;i<=NF;i++){a[i]+=$i;++count[i]}} END{ for(i=1;i<=NF;i++){print a[i]/count[i]}}' | paste $BAMLIST - > $OUTPUTDIR/Sally_HCminind7_27jun22.GL-RealCoverage.txt
+```
+> Get Missing Data (_Genotype Likelihoods_):
+```
+  N_SITES='zcat /home/projects/dp_00007/people/hmon/HighCovOyster_preprocess/PCA/Sally_HCminind7_27jun22.beagle.gz | tail -n +2 | wc -l'
+
+  zcat $OUTPUTDIR/Sally_HCminind7_27jun22.beagle.gz | tail -n +2 | perl /home/projects/dp_00007/apps/Scripts/call_geno.pl --skip 3 | cut -f 4- | awk '{ for(i=1;i<=NF; i++){ if($i==-1)x[i]++} } END{ for(i=1;i<=NF; i++) print i"\t"x[i] }' | paste /home/projects/dp_00007/people/hmon/HighCovOyster_preprocess/01_infofiles/list_HC_noluri.labels - | awk -v N_SITESawk="$N_SITES" '{print $1"\t"$3"\t"$3*100/N_SITESawk}' > $OUTPUTDIR/Sally_HCminind7_27jun22.GL-MissingData.txt
+
+```
