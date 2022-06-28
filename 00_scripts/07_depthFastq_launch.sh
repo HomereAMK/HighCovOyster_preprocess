@@ -15,4 +15,4 @@ done
 #change jobs header
 
 #Submit jobs
-for i in $(ls 00_scripts/TRIM*sh); do qsub $i; done
+for i in $(ls 00_scripts/DEPTHFASTQ*sh); do qsub $i; done
