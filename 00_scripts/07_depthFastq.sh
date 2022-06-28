@@ -27,4 +27,4 @@ zcat 02_data/"$base"_1.fq.gz | wc -l  > 07_depth/"$base".count_fastq_1.tmp
 zcat 02_data/"$base"_1.fq.gz | awk 'NR%4==2' | tr -d "\n" | wc -m > 07_depth/"$base".count_fastq_2.tmp
 RAWREADS=`cat 07_depth/"$base".count_fastq_1.tmp`
 RAWBASES=`cat 07_depth/"$base".count_fastq_2.tmp`
-printf "%s\t%s\t%s\n" $base $((RAWREADS/4)) $RAWBASES > 07_depth/Fastq_depth_14jun22.txt
+printf "%s\t%s\t%s\n" $base $((RAWREADS/4)) $RAWBASES >> 07_depth/Fastq_depth_14jun22.txt
