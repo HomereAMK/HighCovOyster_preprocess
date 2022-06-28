@@ -68,7 +68,7 @@ OUTPUTDIR=/home/projects/dp_00007/people/hmon/HighCovOyster_preprocess/PCA
 ```
 >  -minInd 50% flag
 ```
-angsd -b $BAMLIST -ref $REF -out $OUTPUTDIR/Monika_HC_22jun22 \
+angsd -b $BAMLIST -ref $REF -out $OUTPUTDIR/Sally_HCminind7_27jun22 \
 -remove_bads 1 -uniqueOnly 1 -baq 1 -C 50 -minMapQ 30 -minQ 30 -MinMaf 0.015 -SNP_pval 1e-6 -postCutoff 0.95 -minInd 7 \
 -GL 2 -doMajorMinor 4 -doMaf 1 -doCounts 1 -doGlf 2 -doPost 2 -doGeno 2 -dumpCounts 2 -doHaploCall 1 -doIBS 1 -doDepth 1 \
 -doCov 1 -makeMatrix 1 -P 36
