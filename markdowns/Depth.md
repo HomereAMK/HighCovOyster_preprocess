@@ -20,8 +20,8 @@ RAWFASTQDIR=/home/projects/dp_00007/people/hmon/HighCovOysters
 BASEDIR=/home/projects/dp_00007/people/hmon/HighCovOyster_preprocess
 # Loop over each sample in the sample table
 
-for SAMPLEFILE in `cat $SAMPLELIST`; do
-	RAWFASTQFILES=$RAWFASTQDIR/$SAMPLEFILE'*.fq.gz'  # The input path and file prefix
+for file in 'cat $SAMPLELIST'; do
+	RAWFASTQFILES=$RAWFASTQDIR/$file'*.fq.gz'  # The input path and file prefix
 	
 	# Count the number of reads in raw fastq files. We only need to count the forward reads, since the reverse will contain exactly the same number of reads. fastq files contain 4 lines per read, so the number of total reads will be half of this line number. 
 	zcat $RAWFASTQFILES | wc -l  > ${SAMPLELIST}.count_fastq_1.tmp &
@@ -30,9 +30,9 @@ for SAMPLEFILE in `cat $SAMPLELIST`; do
 	zcat $RAWFASTQFILES | awk 'NR%4==2' | tr -d "\n" | wc -m > ${SAMPLELIST}.count_fastq_2.tmp  &
 	
 	wait
-		RAWREADS=`cat ${SAMPLELIST}.count_fastq_1.tmp`
-		RAWBASES=`cat ${SAMPLELIST}.count_fastq_2.tmp`
-		printf "%s\t%s\t%s\n" $SAMPLEFILE $((RAWREADS/4)) $RAWBASES > 01_infofiles/Fastq_depth_14jun22.txt
+		RAWREADS='cat ${SAMPLELIST}.count_fastq_1.tmp'
+		RAWBASES='cat ${SAMPLELIST}.count_fastq_2.tmp'
+		printf "%s\t%s\t%s\n" $file $((RAWREADS/4)) $RAWBASES > 01_infofiles/Fastq_depth_14jun22.txt
 done
 done
 rm *_[12].tmp
