@@ -1,6 +1,8 @@
 
 - [Genome-wide-pca](#genome-wide-pca)
 - [Genome-wide-pca-nolurida](#genome-wide-pca-nolurida)
+- [Genome-wide-pca-nolurida no minIND](#genome-wide-pca-nolurida-nominIND)
+
 
 ## Genome-wide-pca
 ```
@@ -35,6 +37,7 @@ angsd -b $BAMLIST -ref $REF -out $OUTPUTDIR/Monika_HC_22jun22 \
 -GL 2 -doMajorMinor 4 -doMaf 1 -doCounts 1 -doGlf 2 -doPost 2 -doGeno 2 -dumpCounts 2 -doHaploCall 1 -doIBS 1 -doDepth 1 \
 -doCov 1 -makeMatrix 1 -P 36
 ```
+>  -> Number of sites retained after filtering: 4184753 (LURIDA included)
 
 ```
 #Get the label list from the bam list
@@ -73,6 +76,8 @@ angsd -b $BAMLIST -ref $REF -out $OUTPUTDIR/Sally_HCminind7_27jun22 \
 -GL 2 -doMajorMinor 4 -doMaf 1 -doCounts 1 -doGlf 2 -doPost 2 -doGeno 2 -dumpCounts 2 -doHaploCall 1 -doIBS 1 -doDepth 1 \
 -doCov 1 -makeMatrix 1 -P 36
 ```
+> -> Number of sites retained after filtering: 3 576 381 (NO LURIDA + 50% minIND)
+
 ```
 #Get the label list from the bam list
 awk '{split($0,a,"/"); print a[9]}' $BAMLIST | awk '{split($0,b,"_"); print b[1]"_"b[2]}' > /home/projects/dp_00007/people/hmon/HighCovOyster_preprocess/01_infofiles/list_HC_noluri.labels
@@ -95,3 +100,12 @@ cat /home/projects/dp_00007/people/hmon/HighCovOyster_preprocess/01_infofiles/li
   zcat $OUTPUTDIR/Sally_HCminind7_27jun22.beagle.gz | tail -n +2 | perl /home/projects/dp_00007/apps/Scripts/call_geno.pl --skip 3 | cut -f 4- | awk '{ for(i=1;i<=NF; i++){ if($i==-1)x[i]++} } END{ for(i=1;i<=NF; i++) print i"\t"x[i] }' | paste /home/projects/dp_00007/people/hmon/HighCovOyster_preprocess/01_infofiles/list_HC_noluri.labels - | awk -v N_SITESawk="$N_SITES" '{print $1"\t"$3"\t"$3*100/N_SITESawk}' > $OUTPUTDIR/Sally_HCminind7_27jun22.GL-MissingData.txt
 
 ```
+
+## genome-wide-pca-nolurida-nominIND
+```
+angsd -b $BAMLIST -ref $REF -out $OUTPUTDIR/Frida_HC_30jun22 \
+-remove_bads 1 -uniqueOnly 1 -baq 1 -C 50 -minMapQ 30 -minQ 30 -MinMaf 0.015 -SNP_pval 1e-6 -postCutoff 0.95 \
+-GL 2 -doMajorMinor 4 -doMaf 1 -doCounts 1 -doGlf 2 -doPost 2 -doGeno 2 -dumpCounts 2 -doHaploCall 1 -doIBS 1 -doDepth 1 \
+-doCov 1 -makeMatrix 1 -P 36
+```
+>        -> Number of sites retained after filtering: 4 087 795 (NO LURIDA + no minIND)
