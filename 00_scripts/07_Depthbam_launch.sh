@@ -13,4 +13,5 @@ base=$(basename "$file")
 
 	toEval="cat 00_scripts/07_Depthbam.sh | sed 's/__BASE__/$base/g'"; eval $toEval > 00_scripts/DEPTH_$base.sh
 done
-
+#Submit jobs
+for i in $(ls 00_scripts/DEPTH_*sh); do qsub $i; done
