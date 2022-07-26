@@ -24,6 +24,18 @@ bcftools mpileup --threads 40 -C50 -Ou -f $REF /home/projects/dp_00007/people/hm
     done
 done
 ```
+>Vagstrånda
+```
+REF=/home/projects/dp_00007/people/hmon/AngsdPopStruct/01_infofiles/fileOegenome10scaffoldC3G.fasta
+for POP in VAGS
+do
+    for IND in `echo -n 06 13`
+    do
+bcftools mpileup --threads 40 -C50 -Ou -f $REF /home/projects/dp_00007/people/hmon/HighCovOyster_preprocess/06_realigned/${POP}_${IND}*.minq30realigned.bam | bcftools call -c --threads 40 | vcfutils.pl vcf2fq -d 3 | pigz -p 40 > /home/projects/dp_00007/people/hmon/HighCovOyster_preprocess/PSMC/${POP}_${IND}.diploid.fq.gz
+    done
+done
+
+```
 ##### Creates `.psmsfa` files:
 >Nissum
 ```
