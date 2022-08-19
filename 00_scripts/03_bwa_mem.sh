@@ -54,16 +54,16 @@ base=__BASE__
         "$DATAINPUT"/"$base"_1.paired.fq.gz "$DATAINPUT"/"$base"_2.paired.fq.gz >"$DATAOUTPUT"/"$base".sam
 
 
-        # Create bam file
+        # Create bam file q20
     echo "Creating bam for $base"
 
-    samtools view -bS -h -q 30 -F 4 \
+    samtools view -bS -h -q 20 -F 4 \ 
     "$DATAOUTPUT"/"$base".sam >"$DATAOUTPUT"/"$base".bam
 
 
      echo "Creating sorted bam for $base"
-        samtools sort "$DATAOUTPUT"/"$base".bam -o "$DATAOUTPUT"/"$base".sort.minq30.bam
-        samtools index "$DATAOUTPUT"/"$base".sort.minq30.bam
+        samtools sort "$DATAOUTPUT"/"$base".bam -o "$DATAOUTPUT"/"$base".sort.minq20.bam
+        samtools index "$DATAOUTPUT"/"$base".sort.minq20.bam
    
    # Clean up
     echo "Removing "$DATAOUTPUT"/"$base".sam"

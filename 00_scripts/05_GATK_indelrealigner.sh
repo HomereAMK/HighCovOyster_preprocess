@@ -48,21 +48,21 @@ base=__BASE__
 #samtools faidx $GENOME
 
 # Index bam files
-samtools index "$DATAINPUT"/"$base".nocig.dedup_clipoverlap.minq30.bam 
+samtools index "$DATAINPUT"/"$base".nocig.dedup_clipoverlap.minq20.bam 
 
 ## Create list of potential in-dels nocig
 java -jar /services/tools/gatk/3.8-0/GenomeAnalysisTK.jar \
 -T RealignerTargetCreator \
 -R $GENOME \
--I "$DATAINPUT"/"$base".nocig.dedup_clipoverlap.minq30.bam  \
--o "$DATAOUTPUT"/"$base".all_samples_for_indel_realigner.nocig.minq30.intervals 
+-I "$DATAINPUT"/"$base".nocig.dedup_clipoverlap.minq20.bam  \
+-o "$DATAOUTPUT"/"$base".all_samples_for_indel_realigner.nocig.minq20.intervals 
 
 ## Run the indel realigner tool nocig
 java -jar /services/tools/gatk/3.8-0/GenomeAnalysisTK.jar \
 -T IndelRealigner \
 -R $GENOME \
--I "$DATAINPUT"/"$base".nocig.dedup_clipoverlap.minq30.bam \
--targetIntervals "$DATAOUTPUT"/"$base".all_samples_for_indel_realigner.nocig.minq30.intervals \
+-I "$DATAINPUT"/"$base".nocig.dedup_clipoverlap.minq20.bam \
+-targetIntervals "$DATAOUTPUT"/"$base".all_samples_for_indel_realigner.nocig.minq20.intervals \
 --consensusDeterminationModel USE_READS  --nWayOut realigned.bam
 
 ##

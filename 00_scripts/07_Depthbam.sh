@@ -30,4 +30,4 @@ cd $PBS_O_WORKDIR
 base=__BASE__
 
 ######################################################################################################################
-samtools depth -aa 06_realigned/"$base".nocig.dedup_clipoverlap.minq30realigned.bam | cut -f 3 | gzip > 07_depth/"$base"_depth.gz
+samtools depth -aa 06_realigned/"$base".nocig.dedup_clipoverlap.minq20realigned.bam | cut -f 3 | gzip > 07_depth/"$base"_depth.gz

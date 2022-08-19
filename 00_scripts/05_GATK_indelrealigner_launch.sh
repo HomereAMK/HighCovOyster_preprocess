@@ -6,7 +6,7 @@ rm 00_scripts/REALIGNINDEL*sh
 
 # launch scripts for Colosse
 
-for file in $(ls 05_dedup/*.nocig.dedup_clipoverlap.minq30.bam |sed -e 's/.nocig.dedup_clipoverlap.minq30.bam//g'|sort -u)   #only the nocig retry
+for file in $(ls 05_dedup/*.nocig.dedup_clipoverlap.minq20.bam |sed -e 's/.nocig.dedup_clipoverlap.minq20.bam//g'|sort -u)   #only the nocig retry
 do
 
 base=$(basename "$file")
