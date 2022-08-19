@@ -4,7 +4,7 @@
 
 rm 00_scripts/BWA*sh
 
-# launch scripts for Colosse
+## launch scripts for Colosse
 
 for file in $(ls 03_trimmed/*.paired.fq.gz|sed -e 's/_[12].paired.fq.gz//'|sort -u)
 

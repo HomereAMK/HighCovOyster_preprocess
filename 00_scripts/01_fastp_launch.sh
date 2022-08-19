@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Clean up
+## Clean up
 rm 00_scripts/FASTP*sh
 
 # launch scripts for Colosse

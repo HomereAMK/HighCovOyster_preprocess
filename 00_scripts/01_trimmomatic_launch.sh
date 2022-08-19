@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Clean up
+## Clean up
 rm 00_scripts/TRIM*sh
 
 # launch scripts for Colosse

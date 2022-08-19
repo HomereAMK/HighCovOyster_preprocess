@@ -10,7 +10,7 @@
 #PBS -m n
 #PBS -r n
 
-# Go to the directory from where the job was submitted (initial directory is $HOME)
+## Go to the directory from where the job was submitted (initial directory is $HOME)
 echo Working directory is $PBS_O_WORKDIR
 cd $PBS_O_WORKDIR
 
