@@ -47,13 +47,23 @@ do
     done
 done
 ```
+>oris
+```
+for POP in ORIS
+do
+    for IND in `echo -n 17 19`
+    do
+    fq2psmcfa -q20 /home/projects/dp_00007/people/hmon/HighCovOyster_preprocess/PSMC/${POP}_${IND}.diploid.fq.gz > /home/projects/dp_00007/people/hmon/HighCovOyster_preprocess/PSMC/${POP}_${IND}.psmcfa
+    done
+done
+```
 
 ##### Runs `PSMC`:
 >Nissum
 ```
 for POP in NISS
 do
-    for IND in `seq -w 08 13`
+    for IND in `echo -n 08 13`
     do
     psmc -N25 -t15 -r5 -p "4+25*2+4+6" /home/projects/dp_00007/people/hmon/HighCovOyster_preprocess/PSMC/${POP}_${IND}.psmcfa -o /home/projects/dp_00007/people/hmon/HighCovOyster_preprocess/PSMC/${POP}_${IND}.psmc
     done
@@ -65,6 +75,7 @@ done
 ```
 cat PSMC/NISS_08.psmc PSMC/NISS_13.psmc > NISSHC-Allind_01_NoBS.psmc
 ```
+cat LumpfishHC-Skagerrak_01_NoBS.psmc LumpfishHC-Kattegat_01_NoBS.psmc LumpfishHC-Oeresund_01_NoBS.psmc LumpfishHC-BalticSea_01_NoBS.psmc > LumpfishHC-AllPops_01_NoBS.psmc
 
 
 ##### Plots concatenated `.psmc` results:

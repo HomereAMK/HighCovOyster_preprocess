@@ -26,8 +26,8 @@ source("ploting.R")
 # Defines parameters ~
 FishMut = 0.3e-08 #estuarine oyster value
 data_list <- as.data.frame(dir(pattern = ".psmc")); colnames(data_list) <- c("PSMCfile")
-data_list$GenTime <- ifelse(grepl("AtlanticHerring", data_list$PSMCfile), 1, 1)
-
+#data_list$GenTime <- ifelse(grepl("AtlanticHerring", data_list$PSMCfile), 1, 1)
+data_list$GenTime = 1
 
 # Loads PSMC data ~
 fulldf <- list()
@@ -43,41 +43,26 @@ fulldfUp <- melt(fulldf, id = c("Sample_ID", "Population", "YearsAgo", "Ne"))
 
 
 # Corrects Species names ~
-levels(fulldfUp$Species <- sub("EuropeanFlounder", "European Flounder", fulldfUp$Species))
-levels(fulldfUp$Species <- sub("AtlanticCod", "Atlantic Cod", fulldfUp$Species))
-levels(fulldfUp$Species <- sub("AtlanticHerring", "Atlantic Herring", fulldfUp$Species))
+#levels(fulldfUp$Species <- sub("EuropeanFlounder", "European Flounder", fulldfUp$Species))
 
 
 # Corrects Population names ~
-levels(fulldfUp$Population <- sub("NorthSea", "North Sea", fulldfUp$Population))
-levels(fulldfUp$Population <- sub("Oeresund", "?resund", fulldfUp$Population))
-levels(fulldfUp$Population <- sub("BornholmBasin", "Bornholm Basin", fulldfUp$Population))
-levels(fulldfUp$Population <- sub("BalticSeaAutumnSpawning", "Baltic Sea Autumn Spawning", fulldfUp$Population))
-levels(fulldfUp$Population <- sub("BalticSea", "Baltic Sea", fulldfUp$Population))
+#levels(fulldfUp$Population <- sub("NorthSea", "North Sea", fulldfUp$Population))
 
 
-# Reorders Species ~
-fulldfUp$Species <- factor(fulldfUp$Species, ordered = T,
-                           levels = c("Turbot",
-                                      "European Flounder",
-                                      "Atlantic Cod",
-                                      "Atlantic Herring",
-                                      "Lumpfish"))
 
 
 # Reorders Population ~
 fulldfUp$Population <- factor(fulldfUp$Population, ordered = T,
-                              levels = c("North Sea",
-                                         "Skagerrak",
-                                         "Kattegat",
-                                         "?resund",
-                                         "Bornholm Basin",
-                                         "Baltic Sea",
-                                         "Baltic Sea Autumn Spawning"))
+                              levels = c("ORIS", "PONT", 
+                                         "TRAL", "CLEW", "WADD", "NISS",
+                                         "HYPP",
+                                         "VAGS"
+                              ))
 
 
 # Limits YearsAgo to 12K - 100K ~
-fulldfUpUp <- fulldfUp %>% filter(YearsAgo >= 1500 & YearsAgo <= 1000000)
+fulldfUpUp <- fulldfUp %>% filter(YearsAgo >= 1500 & YearsAgo <= 2000100)
 
 
 # Custom y-axis breaks ~
@@ -123,22 +108,24 @@ labels_fun <- function(x) {
          scales::label_number(accuracy = 1, scale = 1/1000, big.mark = "", suffix = "K")(x),
          scales::label_number(accuracy = 1, scale = 1/1000, big.mark = "", suffix = "K")(x))}
 
+table(fulldfUp$Population)
+
 
 # Creates plot ~
 PSMC_plot <-
  ggplot(fulldfUpUp, aes(YearsAgo, Ne, group = Sample_ID, colour = Population)) +
         geom_line(linetype = 1, size = .75, alpha = .9) +
         coord_trans(x = "log", y = "log") +
-        facet_rep_grid(Population ~. , scales = "free_y") +
-        scale_colour_manual(values = c("#4575b4", "#4575b4", "#8c510a", "#fee090", "#fc8d59", "#d73027", "#1b7837")) +
+        #facet_rep_grid(Population ~. , scales = "free_y") +
+        scale_colour_manual(values = c("#AD5B35", "#CC480C", "#C89AD1","#91BD96","#02630C","#45D1F7","#240377")) +
         scale_x_continuous("Years Ago",
-                     breaks = c(5000, 10000, 15000, 25000),
-                     labels = c("5K", "10K", "15K", "25K"),
-                     #limits = c(1500, 25200),
+                     breaks = c(7000, 5000, 10000, 15000, 25000, 50000),
+                     labels = c("7K", "5K", "10K", "15K", "25K", "50K"),
+                     limits = c(5000, 2000100),
                      expand = c(.005, .005)) +
-        scale_y_continuous("Effective Population Size",
-                     #limits = limits_fun,
-                     #breaks = breaks_fun,
+        scale_y_continuous("Effective Population Size (Ne)",
+                           breaks = c(3000, 5000, 10000, 15000, 25000, 50000),
+                           labels = c("3K", "5K", "10K", "15K", "25K", "50K"),
                      #labels = labels_fun,
                      expand = c(.05, .05)) +
         theme(panel.background = element_rect(fill = "#ffffff"),
@@ -163,7 +150,7 @@ PSMC_plot <-
 
   
 # Saves plot ~
-ggsave(PSMC_plot, file = "~/Desktop/Scripts/HighCovOyster_preprocess/08_local_r/03_results/PSMC/HC_Nissum_mu0.3e-8_Jun22.pdf",
+ggsave(PSMC_plot, file = "~/Desktop/Scripts/HighCovOyster_preprocess/08_local_r/03_results/PSMC/HC_all_mu0.3e-8_gen1_aug22.pdf",
        device = cairo_pdf, width = 14, height = 14, scale = 1.35, dpi = 600)
 dev.off()
 
