@@ -58,6 +58,6 @@ DEDUPMAPPEDBASES=`cat 07_depth/"$base".count_bam_2.tmp`
 REALIGNEDMAPPEDBASES=`cat 07_depth/"$base".count_bam_3.tmp`
 POP=`cat 07_depth/"$base".count_pop_1.tmp`
 
-printf "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n" $base $POP $((RAWREADS/4)) $RAWBASES $ADPTERCLIPBASES $MAPPEDBASES $DEDUPMAPPEDBASES $REALIGNEDMAPPEDBASES >> 07_depth/Summary_depth_29jun22.txt
+printf "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n" $base $POP $RAWREADS $RAWBASES $ADPTERCLIPBASES $MAPPEDBASES $DEDUPMAPPEDBASES $REALIGNEDMAPPEDBASES >> 07_depth/Summary_depth_19aug22.txt
 
 
