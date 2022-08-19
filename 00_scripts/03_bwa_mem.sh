@@ -28,12 +28,11 @@ echo This job has allocated $NPROCS nodes
 #cp $SCRIPT $LOG_FOLDER/"$TIMESTAMP"_"$NAME"
 
 # Load all required modules for the job
-module load gcc/8.2.0
-module load tools
-module load ngs
+module load tools computerome_utils/2.0
+module load htslib/1.13
+module load bcftools/1.14
+module load samtools/1.13
 module load bwa/0.7.17
-module load samtools/1.12
-
 
 # Global variables
 DATAOUTPUT="04_mapped"
