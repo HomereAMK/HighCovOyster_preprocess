@@ -29,14 +29,14 @@ echo This job has allocated $NPROCS nodes
 
 # Load all required modules for the job
 module load tools computerome_utils/2.0
-module load htslib/1.13
+module load htslib/1.11
 module load bcftools/1.14
-module load samtools/1.13
+module load samtools/1.14
 module load bwa/0.7.17
 
 # Global variables
-DATAOUTPUT="04_mapped"
-DATAINPUT="03_trimmed"
+DATAOUTPUT="/home/projects/dp_00007/people/hmon/HighCovOyster_preprocess/04_mapped"
+DATAINPUT="/home/projects/dp_00007/people/hmon/HighCovOyster_preprocess/03_trimmed"
 GENOME="/home/projects/dp_00007/people/hmon/Shucking/01_infofiles/fileOegenome10scaffoldC3G.fasta"
 NCPU=8
 base=__BASE__
@@ -50,7 +50,7 @@ base=__BASE__
     bwa mem -t "$NCPU" \
         -R "$ID" \
         "$GENOME" \
-        "$DATAINPUT"/"$base"_1.paired.fq.gz "$DATAINPUT"/"$base"_2.paired.fq.gz >"$DATAOUTPUT"/"$base".sam
+        "$DATAINPUT"/"$base"_1.paired.fq.gz "$DATAINPUT"/"$base"_2.paired.fq.gz > "$DATAOUTPUT"/"$base".sam
 
 
         # Create bam file q20
