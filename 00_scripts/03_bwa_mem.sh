@@ -68,7 +68,7 @@ base=__BASE__
     echo "Removing "$DATAOUTPUT"/"$base".sam"
     echo "Removing "$DATAOUTPUT"/"$base".bam"
 
-        rm "$DATAOUTPUT"/"$base".sam
+        #rm "$DATAOUTPUT"/"$base".sam
         rm "$DATAOUTPUT"/"$base".bam
 
 #map only on scaffold5
