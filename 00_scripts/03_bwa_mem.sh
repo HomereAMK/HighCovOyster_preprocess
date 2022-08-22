@@ -28,11 +28,12 @@ echo This job has allocated $NPROCS nodes
 #cp $SCRIPT $LOG_FOLDER/"$TIMESTAMP"_"$NAME"
 
 # Load all required modules for the job
-module load tools computerome_utils/2.0
-module load htslib/1.11
-module load bcftools/1.14
-module load samtools/1.14
+module load tools
+module load ngs
+module load gcc/8.2.0
+module load htslib/1.14
 module load bwa/0.7.17
+module load samtools/1.12
 
 # Global variables
 DATAOUTPUT="/home/projects/dp_00007/people/hmon/HighCovOyster_preprocess/04_mapped"
