@@ -56,9 +56,7 @@ base=__BASE__
 
         # Create bam file q20
     echo "Creating bam for $base"
-
-    samtools view -bS -h -q 20 -F 4 \ 
-    "$DATAOUTPUT"/"$base".sam >"$DATAOUTPUT"/"$base".bam
+      samtools view -bS -h -q 20 -F 4 "$DATAOUTPUT"/"$base".sam >"$DATAOUTPUT"/"$base".bam
 
 
      echo "Creating sorted bam for $base"
