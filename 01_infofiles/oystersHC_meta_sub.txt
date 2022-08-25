@@ -1,0 +1,7 @@
+sample.ID       genus   species clade   location        sublocation     sex     ecomorph.phenotype      sequence.depth
+CMASS6607982    Astatotilapia   calliptera      AstCal  Lake_Masoko     Shallow M       Littoral        6.09
+CMASS6607991    Astatotilapia   calliptera      AstCal  Lake_Masoko     Intermediate    M       Littoral        5.36
+CMASS6389725    Astatotilapia   calliptera      AstCal  Lake_Masoko     Shallow M       Littoral        5.89
+CMASS6608065    Astatotilapia   calliptera      AstCal  Lake_Masoko     Deep    M       Littoral        8.58
+CMASS6169461    Astatotilapia   calliptera      AstCal  Lake_Masoko     Shallow M       Littoral        5.27
+CMASS6169452    Astatotilapia   calliptera      AstCal  Lake_Masoko     Intermediate    M       Littoral        5.64
