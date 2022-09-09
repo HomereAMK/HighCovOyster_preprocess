@@ -14,12 +14,17 @@ ls *.fq.gz|sed -e 's/_[12].fq.gz//'|sort -u >> ../HighCovOyster_preprocess/01_in
 ```
 ## Make depth list
 ```
-BAMSDEPTH=/home/projects/dp_00007/people/hmon/HighCovOyster_preprocess/07_depth/*L4_depth.gz
-ls $BAMSDEPTH > 07_depth/list_depth_HC_L4
-BAMSDEPTH=/home/projects/dp_00007/people/hmon/HighCovOyster_preprocess/07_depth/*L1_depth.gz
-ls $BAMSDEPTH > 07_depth/list_depth_HC_L1
-BAMSDEPTH=/home/projects/dp_00007/people/hmon/HighCovOyster_preprocess/07_depth/*L1and2Merged_depth.gz
-ls $BAMSDEPTH > 07_depth/list_depth_HC_Merged
+#BAMSDEPTH=/home/projects/dp_00007/people/hmon/HighCovOyster_preprocess/07_depth/*L4_depth.gz
+#ls $BAMSDEPTH > 07_depth/list_depth_HC_L4
+#BAMSDEPTH=/home/projects/dp_00007/people/hmon/HighCovOyster_preprocess/07_depth/*L1_depth.gz
+#ls $BAMSDEPTH > 07_depth/list_depth_HC_L1
+#BAMSDEPTH=/home/projects/dp_00007/people/hmon/HighCovOyster_preprocess/07_depth/*L1and2Merged_depth.gz
+#ls $BAMSDEPTH > 07_depth/list_depth_HC_Merged
+
+
+
+BAMSDEPTH=/home/projects/dp_00007/people/hmon/HighCovOyster_preprocess/07_depth/*depth.gz
+ls $BAMSDEPTH > 07_depth/list_depth_HC_9sept22.txt
 
 ```
 
@@ -54,7 +59,7 @@ library(tidyverse)
 
 #var
 basedir <- "/home/projects/dp_00007/people/hmon/HighCovOyster_preprocess" # Make sure to edit this to match your $BASEDIR
-bam_list <- read_lines(paste0(basedir, "/07_depth/list_depth_HC_Merged"))
+bam_list <- read_lines(paste0(basedir, "/07_depth/list_depth_HC_9sept22.txt"))
 
 for (i in 1:length(bam_list)){
 
@@ -81,12 +86,12 @@ for (i in 1:length(bam_list)){
   }
 }
 print(output)
-write_csv(output, file="/home/projects/dp_00007/people/hmon/HighCovOyster_preprocess/output.HC_Merged.bamdepth.csv")  #change path
-write_tsv(output, file="/home/projects/dp_00007/people/hmon/HighCovOyster_preprocess/output.HC_Merged.bamdepth.tsv")  #change path
+write_csv(output, file="/home/projects/dp_00007/people/hmon/HighCovOyster_preprocess/output.HC_Merged.bamdepth_9sept22.csv")  #change path
+write_tsv(output, file="/home/projects/dp_00007/people/hmon/HighCovOyster_preprocess/output.HC_Merged.bamdepth_9sept22.tsv")  #change path
 
 output2 <- output %>%
   mutate(across(where(is.numeric), round, 3))%>% 
-  write_csv(output2, file = "samplespe_per_base_depth_presenceData.HC_Merged.bamdepth.csv")
+  write_csv(output2, file = "samplespe_per_base_depth_presenceData.HC_Merged.bamdepth_9sept22.csv")
 ```
 
 # Concatenate the 2 csv
