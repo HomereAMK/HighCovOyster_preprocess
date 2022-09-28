@@ -117,7 +117,7 @@ PSMC_plot <-
         geom_line(linetype = 1, size = .75, alpha = .9) +
         coord_trans(x = "log", y = "log") +
         #facet_rep_grid(Population ~. , scales = "free_y") +
-        scale_colour_manual(values = c("#AD5B35", "#CC480C", "#C89AD1","#91BD96","#02630C","#45D1F7","#240377")) +
+        scale_colour_manual(values = c("#AD5B35", "#CC480C", "#C89AD1","#91BD96","#45D1F7","#240377")) +
         scale_x_continuous("Years Ago",
                      breaks = c(7000, 5000, 10000, 15000, 25000, 50000),
                      labels = c("7K", "5K", "10K", "15K", "25K", "50K"),
@@ -150,7 +150,7 @@ PSMC_plot <-
 
   
 # Saves plot ~
-ggsave(PSMC_plot, file = "~/Desktop/Scripts/HighCovOyster_preprocess/08_local_r/03_results/PSMC/HC_all_mu0.3e-8_gen1_aug22.pdf",
+ggsave(PSMC_plot, file = "~/Desktop/Scripts/HighCovOyster_preprocess/08_local_r/03_results/PSMC/HC_all_mu0.3e-8_gen1_22sept22.pdf",
        device = cairo_pdf, width = 14, height = 14, scale = 1.35, dpi = 600)
 dev.off()
 
